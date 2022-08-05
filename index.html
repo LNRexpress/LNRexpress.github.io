@@ -3,11 +3,468 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Christopher Kane | Software Engineering</title>
+    <title>Christopher Kane</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="style.css" media="screen" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </head>
 <body>
-    <p>
-        Hello, world.
-    </p>
+    <div class="container-fluid">
+        <div class="row align-items-center nav-row background-primary">
+            <div class="col text-center">
+                <div class="d-inline-block ps-2 pe-2"><a href="/">About</a></div>
+                <!-- <div class="d-inline-block ps-2 pe-2"><a href="blog/">Blog</a></div> -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-5 col-lg-4 background-accent pt-4 pb-4 ps-5 pe-5">
+                <div class="d-flex flex-column gutter">
+                    <div class="d-flex flex-column identity">
+                        <h1 class="text-header-secondary">Christopher<br />Kane</h1>
+                        <div class="divider-light">&nbsp;</div>
+                        <h4 class="text-header-secondary">Full Stack Software Engineer</h4>
+                    </div>
+                    <h2 class="text-header-secondary mt-5">Education</h2>
+                    <div class="divider-light mb-3">&nbsp;</div>
+                    <div class="d-flex flex-column">
+                        <div><span class="color-light">Loyola Marymount University</span></div>
+                        <div><span class="color-light fw-light">B.S. Computer Science, 2004</span></div>
+                        <div><span class="fw-light">3.94 Cumulative GPA</span></div>
+                    </div>
+                    <h2 class="text-header-secondary mt-5">Technical Skills</h2>
+                    <div class="divider-light mb-3">&nbsp;</div>
+                    <h3 class="text-header-secondary">Languages</h3>
+                    <div class="custom-list">
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Java</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">C++</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">C</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">C#</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">JavaScript</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">HTML</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">SQL</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Ruby</span></div>
+                    </div>
+                    <h3 class="text-header-secondary mt-4">Java EE Technologies</h3>
+                    <div class="custom-list">
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">JMS</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">JPA</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">JSP</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">JSTL</span></div>
+                    </div>
+                    <h3 class="text-header-secondary mt-4">Frameworks / Libraries</h3>
+                    <div class="custom-list">
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Hibernate</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Spring</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Spring Boot</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">JUnit</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Mockito</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Activiti / Flowable</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">AngularJS</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Twitter Bootstrap</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Ruby on Rails</span></div>
+                    </div>
+                    <h3 class="text-header-secondary mt-4">Databases</h3>
+                    <div class="custom-list">
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">PostgreSQL</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">H2</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Oracle</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">MySQL</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">HBase</span></div>
+                    </div>
+                    <h3 class="text-header-secondary mt-4">Development Tools</h3>
+                    <div class="custom-list">
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Git</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Subversion</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Vagrant</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Apache Maven</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">NetBeans</span></div>
+                    </div>
+                    <h3 class="text-header-secondary mt-4">Operating Systems</h3>
+                    <div class="custom-list">
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Debian</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">CentOS</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Oracle Enterprise Linux</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Ubuntu</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Windows 7/10</span></div>
+                    </div>
+                    <h3 class="text-header-secondary mt-4">Web Servers</h3>
+                    <div class="custom-list">
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Apache Tomcat</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Jetty</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">NGINX</span></div>
+                    </div>
+                    <h3 class="text-header-secondary mt-4">Other</h3>
+                    <div class="custom-list">
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Aspera</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Hadoop</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Elasticsearch</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">AWS</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">Oracle Cloud Infrastructure</span></div>
+                        <div><i class="fas fa-circle fa-xs"></i><span class="ps-3">JIRA</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-7 col-lg-8 ps-0 pb-4 background-light">
+                <div class="d-flex justify-content-start align-items-end">
+                    <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/p/n2qGmuntGtzsoVV04trXQ4D15M5l0IZ0DUeOTZ-48IMeNYSNeHBdna_tph5Blwfm/n/idhgxjba58n7/b/personal/o/cv_me.jpg" alt="image of Chris" />
+                    <div class="d-flex flex-column justify-content-start contact-details ps-5">
+                        <div class="d-flex mb-2">
+                            <div class="icon-container"><i class="fas fa-envelope fa-lg"></i></div>
+                            <div class="flex-grow-1"><a href="mailto:LNRexpress@gmail.com" class="ms-4">LNRexpress@gmail.com</a></div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="icon-container"><i class="fab fa-linkedin fa-lg"></i></div>
+                            <div class="flex-grow-1"><a href="https://www.linkedin.com/in/chris-kane-aa965b5" class="ms-4">https://www.linkedin.com/in/chris-kane-aa965b5</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col pt-5 ps-5">
+                        <h2>Experience</h2>
+                        <div class="divider mb-3">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col ps-5">
+                        <div class="d-flex flex-column mb-5">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h3>Owner</h3>
+                                </div>
+                                <div>
+                                    <span class="fw-light">11/2020 - Present</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="fw-light"><a href="https://www.kloudsigning.com">KloudSigning, LLC<i class="fas fa-external-link-alt fa-xs ms-3"></i></a></h3>
+                            </div>
+                            <div class="custom-list">
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-circle fa-xs"></i>
+                                    </div>
+                                    <div class="color-accent ps-3">
+                                        Designed and implemented a service that allows users to obtain electronic signatures on PDF files.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col ps-5">
+                        <div class="d-flex flex-column mb-5">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h3>Owner</h3>
+                                </div>
+                                <div>
+                                    <span class="fw-light">11/2020 - Present</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="fw-light"><a href="https://www.bedrock-is.com">Bedrock Investment Services, LLC<i class="fas fa-external-link-alt fa-xs ms-3"></i></a></h3>
+                            </div>
+                            <div class="custom-list">
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-circle fa-xs"></i>
+                                    </div>
+                                    <div class="color-accent ps-3">
+                                        Providing personalized investment management and advice.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col ps-5">
+                        <div class="d-flex flex-column mb-5">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h3>Lead Software Engineer, Media Engineering</h3>
+                                </div>
+                                <div>
+                                    <span class="fw-light">05/2016 - 11/2020</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="fw-light">Fullscreen Media</h3>
+                            </div>
+                            <div class="custom-list">
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-circle fa-xs"></i>
+                                    </div>
+                                    <div class="color-accent ps-3">
+                                        Implemented a customized accounting and payment system that automated various steps in the company's monthly accounting cycle.
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-circle fa-xs"></i>
+                                    </div>
+                                    <div class="color-accent ps-3">
+                                        Designed and implemented a distributed, horizontally scalable media transcoding service using Apache Hadoop.
+                                        The service was deployed to the cloud (AWS Elastic MapReduce), and resulted in a 50% reduction in transcode time.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col ps-5">
+                        <div class="d-flex flex-column mb-5">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h3>Lead Software Engineer</h3>
+                                </div>
+                                <div>
+                                    <span class="fw-light">04/2006 - 05/2016</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="fw-light">NBCUniversal</h3>
+                            </div>
+                            <div class="custom-list">
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-circle fa-xs"></i>
+                                    </div>
+                                    <div class="color-accent ps-3">
+                                        Developed applications to automate various digital media workflows
+                                        for NBCUniversal's studio post-production groups. These workflows
+                                        included: archiving digital media into a digital tape archive,
+                                        restoring media out of a digital archive, transcoding media when
+                                        necessary, and delivering media to clients.
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-circle fa-xs"></i>
+                                    </div>
+                                    <div class="color-accent ps-3">
+                                        Developed a clustered media processing service to control third-party
+                                        systems and execute custom internal media processing tools. Third-party
+                                        tools the service was able to control included DVS Clipster and FUZE,
+                                        Front Porch, Rhozet, and Telestream's Vantage.
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-circle fa-xs"></i>
+                                    </div>
+                                    <div class="color-accent ps-3">
+                                        Developed software to automate the creation and delivery of digital media
+                                        to cable network broadcast servers. This involved working with the
+                                        MainConcept MPEG-2 C++ SDK as well as the OpenCube MXF C++ SDK to develop
+                                        custom transcoding applications. It also involved working with the Aspera
+                                        fasp Java SDK to develop a custom, distributed file delivery service.
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-circle fa-xs"></i>
+                                    </div>
+                                    <div class="color-accent ps-3">
+                                        Developed an application to extract clips from digital media based on a
+                                        user-defined set of timecodes.
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-circle fa-xs"></i>
+                                    </div>
+                                    <div class="color-accent ps-3">
+                                        Developed a faster than real-time, file-based HD standards converter to
+                                        transcode HD NTSC media to HD PAL for international broadcast.
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-circle fa-xs"></i>
+                                    </div>
+                                    <div class="color-accent ps-3">
+                                        Developed digitization solutions for migrating content from DigiBeta and
+                                        HDCAM tapes to digital, file-based assets. This involved developing a
+                                        C library to control tape decks via a serial interface and utilizing a
+                                        C++ SDK provided by a video capture card manufacturer to digitize the
+                                        video and audio signals coming off the tape decks.
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-circle fa-xs"></i>
+                                    </div>
+                                    <div class="color-accent ps-3">
+                                        Developed automated closed-caption multiplexing and file delivery software
+                                        to "pitch" video-on-demand content to AT&amp;T, DirecTV, and Comcast.
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-circle fa-xs"></i>
+                                    </div>
+                                    <div class="color-accent ps-3">
+                                        Developed an application to automatically pull broadcast media off the
+                                        company's SeaChange broadcast server, transcode the media, and upload
+                                        the transcoded media to YouTube for content fingerprinting and piracy prevention.
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-circle fa-xs"></i>
+                                    </div>
+                                    <div class="color-accent ps-3">
+                                        Developed SOAP and RESTful web services for various projects, including
+                                        the company's Digital Asset Management system.
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-circle fa-xs"></i>
+                                    </div>
+                                    <div class="color-accent ps-3">
+                                        Developed several user-facing, Java-based web applications, including the
+                                        front-end of a custom tape digitization solution.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col ps-5">
+                        <div class="d-flex flex-column mb-5">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h3>Junior Analyst</h3>
+                                </div>
+                                <div>
+                                    <span class="fw-light">08/2004 - 04/2006</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="fw-light">Tempest Technologies</h3>
+                            </div>
+                            <div class="custom-list">
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-circle fa-xs"></i>
+                                    </div>
+                                    <div class="color-accent ps-3">
+                                        Optimized image processing algorithms for use in real-time, embedded systems.
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-circle fa-xs"></i>
+                                    </div>
+                                    <div class="color-accent ps-3">
+                                        Designed and developed simple circuits on a Xilinx FPGA chip.
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="fas fa-circle fa-xs"></i>
+                                    </div>
+                                    <div class="color-accent ps-3">
+                                        Developed DLLs for MATLAB, including one providing an interface to control a USB web cam.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col ps-5">
+                        <h2>Areas of Interest</h2>
+                        <div class="divider mb-3">&nbsp;</div>
+                        <div class="custom-list">
+                            <div class="d-flex">
+                                <div>
+                                    <i class="fas fa-circle fa-xs"></i>
+                                </div>
+                                <div class="color-accent ps-3">
+                                    Machine learning: Artifical neural networks, evolutionary algorithms
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div>
+                                    <i class="fas fa-circle fa-xs"></i>
+                                </div>
+                                <div class="color-accent ps-3">
+                                    Distributed computing and distributed file systems
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div>
+                                    <i class="fas fa-circle fa-xs"></i>
+                                </div>
+                                <div class="color-accent ps-3">
+                                    Virtualization
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div>
+                                    <i class="fas fa-circle fa-xs"></i>
+                                </div>
+                                <div class="color-accent ps-3">
+                                    Video codecs, including MPEG-2 and H.264
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div>
+                                    <i class="fas fa-circle fa-xs"></i>
+                                </div>
+                                <div class="color-accent ps-3">
+                                    Hybrid mobile application development
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div>
+                                    <i class="fas fa-circle fa-xs"></i>
+                                </div>
+                                <div class="color-accent ps-3">
+                                    Photography
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col ps-5 mt-5">
+                        <h2>Accomplishments</h2>
+                        <div class="divider mb-3">&nbsp;</div>
+                        <div class="custom-list">
+                            <div class="d-flex">
+                                <div>
+                                    <i class="fas fa-circle fa-xs"></i>
+                                </div>
+                                <div class="color-accent ps-3">
+                                    Recipient of Loyola Marymount University's Presidential Scholarship
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div>
+                                    <i class="fas fa-circle fa-xs"></i>
+                                </div>
+                                <div class="color-accent ps-3">
+                                    Graduated Summa Cum Laude from Loyola Marymount University
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
