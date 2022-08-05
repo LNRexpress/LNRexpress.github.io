@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Back to Basics: Creating and Testing a Custom Linked List in Java</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="../../style.css" media="screen" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/enlighterjs@3.4.0/dist/enlighterjs.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/enlighterjs@3.4.0/dist/enlighterjs.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row align-items-center nav-row background-primary">
+            <div class="col text-center">
+                <div class="d-inline-block ps-2 pe-2"><a href="../../">About</a></div>
+                <div class="d-inline-block ps-2 pe-2"><a href="../../blog/">Blog</a></div>
+            </div>
+        </div>
+        <div class="row background-light">
+            <div class="col offset-md-1 col-md-10 mt-5 pb-3">
+                <h1 class="mb-3">Back to Basics: Creating and Testing a Custom Linked List in Java</h1>
+                <p>
+                    In this post, I step through the implementation of a custom linked list using the Java programming language.
+                    I implement the minimal set of methods needed to provide a list data structure that is useful in modern
+                    Java projects. I also show how to define a method to support the <code>Stream&lt;T&gt;</code> interface
+                    introduced in Java 1.8. Finally, I show how to properly test the list data structure using the JUnit
+                    testing framework.
+                </p>
+                <p>
+                    With that said, let's get started.
+                </p>
+                <h2 class="mt-5 mb-3">Prerequisites</h2>
+                <ul>
+                    <li><strong>Java</strong>, version 1.8 or higher.</li>
+                    <li><strong>NetBeans IDE</strong>: This is my IDE (integrated development environment) of choice. You may use another IDE or text editor if you prefer, but using NetBeans will make this post easier to follow.</li>
+                    <li><strong>Apache Maven</strong>: This is one of the build tools supported by NetBeans. It is also my preferred project build tool.</li>
+                </ul>
+                <h2 class="mt-5 mb-3">Implementation</h2>
+                <p>
+                    The first step is to start NetBeans and create a new project.
+                </p>
+                <img width="475" class="mb-4" src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/idhgxjba58n7/b/personal-public/o/blog%2Fposts%2Fassets%2F6312decc473447904cc29d68ff28118d.png" alt="screenshot" />
+                <p>
+                    In the "New Project" dialog, choose "Java Application" in the "Java with Maven" category, and click the "Next" button.
+                </p>
+                <img width="725" class="mb-4" src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/idhgxjba58n7/b/personal-public/o/blog%2Fposts%2Fassets%2F1b36da41b20baf0f513e11f985904a95.png" alt="screenshot" />
+                <p>
+                    In the "New Java Application" dialog, set the name and location of your project. Also, define your package and artifact details. When you are done, click the "Finish" button.
+                </p>
+                <img width="765" class="mb-4" src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/idhgxjba58n7/b/personal-public/o/blog%2Fposts%2Fassets%2F9b116b19999e82adb68a8733eeb90bf6.png" alt="screenshot" />
+                <p>
+                    Now that the project is created, we will create a new Java <code>class</code> to represent our custom linked list.
+                </p>
+                <p>
+                    In your project's root package, open the context menu and select "New" &rarr; "Java Class".
+                </p>
+                <img width="570" class="mb-4" src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/idhgxjba58n7/b/personal-public/o/blog%2Fposts%2Fassets%2Fd6638526d7d9a0ef45f91092c443fa64.png" alt="screenshot" />
+                <p>
+                    Name the <code>class</code> "LinkedList". Click the "Finish" button to create the <code>.java</code> file for the new <code>class</code>.
+                </p>
+                <img width="725" class="mb-4" src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/idhgxjba58n7/b/personal-public/o/blog%2Fposts%2Fassets%2Fb409c4a64e42510597367cc97b8f6588.png" alt="screenshot" />
+                <p>
+                    After creating the new class, the contents of the <code>.java</code> file should look something like this:
+                </p>
+                <pre data-enlighter-language="java">
+package com.nightsky.linkedlist;
+
+/**
+ * A basic doubly-linked list implementation.
+ *
+ */
+public class LinkedList {
+
+}
+                </pre>
+                <p>
+                    The next step is to implement a <code>private class</code> that will represent the internal nodes in the linked list.
+                    Since we are implementing a doubly-linked list, we will need pointers to the previous and next nodes in the list.
+                    We will also need to keep a reference to the value added by the user of our list.
+                    Our completed <code>Node</code> implementation is below. It can be added to <code>LinkedList.java</code> directly.
+                </p>
+                <pre data-enlighter-language="java">
+    /**
+     * The internal representation of a linked list node.
+     *
+     * @param &lt;T&gt; The type of the elements in the list
+     */
+    private class Node&lt;T&gt; {
+
+        // The previous node in the list, or null if this node is the head
+        private Node&lt;T&gt; previous;
+
+        // The next node in the list, or null if this node is the tail
+        private Node&lt;T&gt; next;
+
+        // The object represented by this node in the list
+        private T value;
+
+        public Node() {
+        }
+
+        public Node(Node&lt;T&gt; previousNode, Node&lt;T&gt; nextNode, T nodeValue) {
+            this.previous = previousNode;
+            this.next = nextNode;
+            this.value = nodeValue;
+        }
+
+        /**
+         * Removes references to encapsulated objects.
+         */
+        public void removeReferences() {
+            this.previous = null;
+            this.next = null;
+            this.value = null;
+        }
+
+        public Node&lt;T&gt; getPrevious() {
+            return previous;
+        }
+
+        public Node&lt;T&gt; getNext() {
+            return next;
+        }
+
+        public T getValue() {
+            return value;
+        }
+
+        public void setPrevious(Node&lt;T&gt; node) {
+            this.previous = node;
+        }
+
+        public void setNext(Node&lt;T&gt; node) {
+            this.next = node;
+        }
+
+        public void setValue(T v) {
+            this.value = v;
+        }
+
+    }
+                </pre>
+                <p>
+                    Note that we have made the <code>Node</code> class generic so that our custom linked list can store objects of any type. Also,
+                    note that we have defined a method named <code>removeReferences()</code>. This method will be used when we remove nodes from
+                    our custom linked list. This will help prevent memory leaks when using our custom linked list.
+                </p>
+                <p>
+                    Now that we have defined the internal representation of a linked list node, we can define the instance variables needed to
+                    support our linked list implementation. We will only need three variables. They will store the head of our list, the tail
+                    of our list, and the size of our list. After adding these variables to <code>LinkedList.java</code>, our class now looks like
+                    this:
+                </p>
+                <pre data-enlighter-language="java">
+public class LinkedList&lt;T&gt; {
+
+    private Node&lt;T&gt; head;
+
+    private Node&lt;T&gt; tail;
+
+    private int size;
+
+    // ...
+
+}
+                </pre>
+                <p>
+                    Notice that we also added the <code>&lt;T&gt;</code> type definition to the <code>LinkedList</code> <code>class</code>. This is needed
+                    so that our list can be used to store values of any type.
+                </p>
+                <p>
+                    Next, we will define one more <code>private class</code> that is needed for us to support iteration over the elements in our
+                    custom linked list. This <code>class</code> will implement the <code>java.util.Iterator</code> <code>interface</code>.
+                    The complete implementation of this <code>class</code> is given below. Like the <code>Node</code> <code>class</code> above,
+                    it can be added to <code>LinkedList.java</code> directly. Be sure to <code>import</code> the <code>java.util.Iterator</code>
+                    <code>class</code> in <code>LinkedList.java</code>.
+                </p>
+                <pre data-enlighter-language="java">
+    /**
+     * The specialized linked list node iterator for our custom linked list.
+     *
+     * @param &lt;T&gt; The type of the elements in the list.
+     */
+    private class NodeIterator&lt;T&gt; implements Iterator&lt;T&gt; {
+
+        public Node&lt;T&gt; currentNode;
+
+        public NodeIterator(Node&lt;T&gt; from) {
+            this.currentNode = from;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentNode != null;
+        }
+
+        @Override
+        public T next() {
+            T nextValue = currentNode.getValue();
+            currentNode = currentNode.getNext();
+            return nextValue;
+        }
+
+    }
+                </pre>
+                <p>
+                    With the <code>NodeIterator</code> <code>class</code> complete, we can now make our linked list iterable.
+                    We do this by implementing the <code>Iterable&lt;T&gt;</code> <code>interface</code>. To implement the
+                    <code>Iterable&lt;T&gt;</code> <code>interface</code>, we add an <code>implements</code> clause to our
+                    <code>class</code> definition and add the <code>iterator()</code> and <code>spliterator()</code> methods
+                    to our <code>LinkedList</code> <code>class</code>. <code>LinkedList.java</code>  now looks like this:
+                </p>
+                <pre data-enlighter-language="java">
+import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.Spliterators;
+
+public class LinkedList&lt;T&gt; implements Iterable&lt;T&gt; {
+
+    private Node&lt;T&gt; head;
+
+    private Node&lt;T&gt; tail;
+
+    private int size;
+
+    @Override
+    public Iterator&lt;T&gt; iterator() {
+        return new NodeIterator&lt;&gt;(head);
+    }
+
+    @Override
+    public Spliterator&lt;T&gt; spliterator() {
+        return Spliterators.spliteratorUnknownSize(iterator(), Spliterator.ORDERED);
+    }
+
+    // ...
+
+}
+                </pre>
+                <p>
+                    To finish off the scaffoldling for the <code>LinkedList</code> <code>class</code>, let's add a default constructor that will
+                    initialize the instance variables in the <code>class</code>. It will set the <code>head</code> and <code>tail</code> variables
+                    to <code>null</code> (because the list is initially empty) and set the <code>size</code> variable to zero. Here is our implementation
+                    of the default constructor:
+                </p>
+                <pre data-enlighter-language="java">
+    public LinkedList() {
+        this.head = null;
+        this.tail = null;
+        this.size = 0;
+    }
+                </pre>
+                <p>
+                    Now that the scaffolding is complete, we can begin implementing the instance methods of our custom linked list. The first method we
+                    will need is the <code>size()</code> method. This method is used to obtain a count of the number of elements in the list. This method
+                    should return the value of the <code>size</code> instance variable like so:
+                </p>
+                <pre data-enlighter-language="java">
+    public int size() {
+        return size;
+    }
+                </pre>
+                <p>
+                    Another useful instance method we want to include is the <code>isEmpty()</code> method. This method can be used to check if the list
+                    contains any elements. This method may seem unnecessary because we are exposing the <code>size</code> instance variable via the <code>size()</code>
+                    method, but it is beneficial to include because it will eliminate code duplication and it makes code that uses our
+                    <code>LinkedList</code> <code>class</code> easier to read. The <code>isEmpty()</code> method is easy to implement as it
+                    merely checks if the size of the list is equal to zero.
+                </p>
+                <pre data-enlighter-language="java">
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+                </pre>
+                <p>
+                    With the <code>isEmpty()</code> method in place, we can now define the instance methods that will provide the core functionality of
+                    our list. We begin by defining two methods that can be used to add elements to our list. The first method will add new elements to
+                    the end of our list, and the second method will add new elements to the location (specified as a zero-based index) given by the user.
+                    Their implementations are as follows:
+                </p>
+                <pre data-enlighter-language="java">
+    /**
+     * Adds an object to the end of this list.
+     *
+     * @param value The object to add to the end of this list.
+     */
+    public void add(T value) {
+        if ( isEmpty() ) {
+            head = new Node&lt;&gt;(null, null, value);
+            tail = head;
+        } else {
+            Node&lt;T&gt; newNode = new Node&lt;&gt;(tail, null, value);
+            tail.setNext(newNode);
+            tail = newNode;
+        }
+
+        ++size;
+    }
+
+    /**
+     * Adds an object to the specified location in this list.
+     *
+     * @param x The index where the object should be added to this list.
+     * @param value The object to add to this list.
+     */
+    public void add(int x, T value) {
+        if ( x > size )
+            throw new IllegalArgumentException();
+
+        if ( x == size ) {
+            // Shortcut for adding to the end of the list
+            add(value);
+            return;
+        }
+
+        Node&lt;T&gt; nodeToShift = head;
+        int i = 0;
+        while ( i < x ) {
+            nodeToShift = nodeToShift.getNext();
+            ++i;
+        }
+
+        Node&lt;T&gt; newNode = new Node&lt;&gt;(nodeToShift.getPrevious(), nodeToShift, value);
+
+        if ( nodeToShift.getPrevious() != null )
+            nodeToShift.getPrevious().setNext(newNode);
+        else
+            head = newNode;
+
+
+        nodeToShift.setPrevious(newNode);
+
+        ++size;
+    }
+                </pre>
+                <p>
+                    If we give users the ability to add elements to our list, we should also give them the ability to remove elements from our list.
+                    We can accomplish this by adding a method named <code>remove</code>. This method should accept the zero-based index of the element
+                    in the list that should be removed. As you can see, its implementation is a bit complex:
+                </p>
+                <pre data-enlighter-language="java">
+    /**
+     * Removes the object at the specified location from this list.
+     *
+     * @param x The index of the object to remove.
+     * @return The object that was removed from this list.
+     */
+    public T remove(int x) {
+        if ( x >= size )
+            throw new NoSuchElementException();
+
+        Node&lt;T&gt; currentNode = head;
+        int i = 0;
+        while ( i < x ) {
+            currentNode = currentNode.getNext();
+            ++i;
+        }
+
+        T val = currentNode.getValue();
+        Node&lt;T&gt; previous = currentNode.getPrevious();
+        Node&lt;T&gt; next = currentNode.getNext();
+
+        if ( previous != null )
+            previous.setNext(next);
+        else
+            head = next;
+
+        if ( next != null )
+            next.setPrevious(previous);
+        else
+            tail = previous;
+
+        // Avoid memory leaks
+        currentNode.removeReferences();
+
+        --size;
+
+        return val;
+    }
+                </pre>
+                <p>
+                    The first thing we do is verify that the user-provided index value is valid. If the index value does not fall in the range of
+                    the indexes of the elements in our list, we throw a <code>NoSuchElementException</code>. Next, we traverse the nodes in our list,
+                    stopping when we reach the node at the index specified by the user. We then save the value of that node so that we can return it
+                    to the user later. We also save references to the previous and next nodes in the linked list. Next, we update the <code>head</code>
+                    of our list if the old <code>head</code> was removed, or we point the previous node at the next node. Similarly, we update the
+                    <code>tail</code> of our list if the old <code>tail</code> was removed, or we point the next node at the previous node. Finally,
+                    we remove object references from the node being deleted, decrement the size of the list, and return the value associated with
+                    the node that was removed.
+                </p>
+                <p>
+                    Now that we can add and remove elements from our list, we need a way for users to retrieve elements that have been added to the list.
+                    The implementation of the <code>get</code> instance method is pretty simple. It is very similar to the <code>remove</code> method, but
+                    it simply returns the value of the node at the specified index instead of removing it.
+                </p>
+                <pre data-enlighter-language="java">
+    /**
+     * Retrieves the object in this list at the specified location.
+     *
+     * @param x The index of the target object.
+     * @return The object in this list at the specified location.
+     */
+    public T get(int x) {
+        if ( x >= size )
+            throw new NoSuchElementException();
+
+        Node&lt;T&gt; currentNode = head;
+        int i = 0;
+        while ( i < x ) {
+            currentNode = currentNode.getNext();
+            ++i;
+        }
+
+        return currentNode.getValue();
+    }
+                </pre>
+                <p>
+                    Users may also wish to change values in our list; so, let's add a <code>set</code> instance method to provide users with
+                    the ability to update values in our list. The implemention is nearly identical to that of the <code>get</code> method, but
+                    instead of calling <code>getValue()</code> on the desired node in our list, we call <code>setValue()</code> instead.
+                </p>
+                <pre data-enlighter-language="java">
+    /**
+     * Sets the object at the specified location in this list.
+     *
+     * @param x The index in this list at which the new object should be placed.
+     * @param value The new object to placed at the specified location.
+     */
+    public void set(int x, T value) {
+        if ( x >= size )
+            throw new NoSuchElementException();
+
+        Node&lt;T&gt; currentNode = head;
+        int i = 0;
+        while ( i < x ) {
+            currentNode = currentNode.getNext();
+            ++i;
+        }
+
+        currentNode.setValue(value);
+    }
+                </pre>
+                <p>
+                    Finally, modern Java collections typically provide a method named <code>stream()</code> that returns an instance of the <code>Stream&lt;T&gt;</code>
+                    <code>interface</code>. Providing such a method is straightforward:
+                </p>
+                <pre data-enlighter-language="java">
+    /**
+     * Returns a sequential &lt;code&gt;Stream&lt;/code&gt; with this list as its source.
+     *
+     * @return A sequential &lt;code&gt;Stream&lt;/code&gt; over the elements in this list.
+     */
+    public Stream&lt;T&gt; stream() {
+        return StreamSupport.stream(spliterator(), false);
+    }
+                </pre>
+                <h2 class="mt-5 mb-3">Unit Testing</h2>
+                <p>
+                    Now that our <code>LinkedList</code> implementation is complete, we need to test it to ensure it works as expected. We will be using JUnit
+                    and AssertJ as our testing and validation framework. We will use the Java Faker library to generate random data for our unit tests.
+                </p>
+                <p>
+                    Before writing any unit tests, we need to add our testing and validation framework dependencies to our project. This can be done by
+                    opening the <code>pom.xml</code> file in the root of your project directory and adding the following <code>dependencies</code> to
+                    the <code>POM</code>.
+                </p>
+                <pre data-enlighter-language="xml">
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+            <version>4.13.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.21.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+                </pre>
+                <p>
+                    Now we are ready to create a <code>class</code> to house our unit tests. Create a <code>.java</code> file named <code>LinkedListTest</code>
+                    and annotate the class like so:
+                </p>
+                <pre data-enlighter-language="java">
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
+/**
+ * Unit tests for our custom LinkedList.
+ *
+ */
+@RunWith(JUnit4.class)
+public class LinkedListTest {
+
+}
+                </pre>
+                <p>
+                    The <code>@RunWith</code> annotation directs Maven to use JUnit when executing our unit tests.
+                </p>
+                <p>
+                    Next, declare an instance field to store a reference to the Java Faker API and create a constructor for our unit test class that initializes
+                    the Faker API. Our unit test class now looks like this:
+                </p>
+                <pre data-enlighter-language="java">
+import com.github.javafaker.Faker;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
+/**
+ * Unit tests for our custom LinkedList.
+ *
+ */
+@RunWith(JUnit4.class)
+public class LinkedListTest {
+
+    private final Faker faker;
+
+    public LinkedListTest() {
+        faker = new Faker();
+    }
+
+}
+                </pre>
+                <p>
+                    Now, we can begin implementing our unit test methods. The first two methods we implement will test the <code>isEmpty()</code> and <code>size()</code>
+                    methods of our <code>LinkedList</code> <code>class</code>.
+                </p>
+                <pre data-enlighter-language="java">
+    @Test
+    public void shouldBeEmptyAfterInitialization() {
+        LinkedList&lt;String&gt; list = new LinkedList&lt;&gt;();
+        assertThat(list.isEmpty()).isTrue();
+    }
+
+    @Test
+    public void shouldHaveZeroSizeAfterInitialization() {
+        LinkedList&lt;String&gt; list = new LinkedList&lt;&gt;();
+        assertThat(list.size()).isEqualTo(0);
+    }
+                </pre>
+                <p>
+                    These two methods test the initial state of the <code>LinkedList</code> after it is constructed. We need to validate that the list has
+                    no elements and a size of zero as one would expect.
+                </p>
+                <p>
+                    To execute these tests in NetBeans, you can select "Run" &rarr; "Test Project" from the application menu bar.
+                </p>
+                <p>
+                    If your tests succeed, you should see something like the following in the NetBeans output window.
+                </p>
+                <pre data-enlighter-language="raw">
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running com.nightsky.linkedlist.LinkedListTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.15 sec
+
+Results :
+
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+                </pre>
+                <p>
+                    Let's now validate that our <code>add()</code> methods work as expected. We want to be sure that adding an element
+                    results in a list that is no longer empty. We also want to check that the list's size matches the number of elements
+                    we add to it. We also want to verify that adding a new element to a specific location in the list shifts the existing
+                    elements in the list. 
+                </p>
+                <pre data-enlighter-language="java">
+    @Test
+    public void shouldNotBeEmptyAfterAddingElement() {
+        LinkedList&lt;String&gt; list = new LinkedList&lt;&gt;();
+        list.add(faker.backToTheFuture().character());
+        assertThat(list.isEmpty()).isFalse();
+    }
+
+    @Test
+    public void shouldHaveSizeOfOneAfterAddingElement() {
+        LinkedList&lt;String&gt; list = new LinkedList&lt;&gt;();
+        list.add(faker.backToTheFuture().character());
+        assertThat(list.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void shouldHaveExpectedSizeAfterAddingValueAtGivenIndex() {
+        String valueToAdd = faker.random().hex(64);
+        LinkedList&lt;String&gt; list = new LinkedList&lt;&gt;();
+        list.add(faker.backToTheFuture().character());
+        list.add(faker.backToTheFuture().character());
+        list.add(faker.backToTheFuture().character());
+        list.add(2, valueToAdd);
+        assertThat(list.size()).isEqualTo(4);
+    }
+
+    @Test
+    public void shouldShiftExistingElementsWhenAddingValueAtGivenIndex() {
+        String valueToAdd = faker.random().hex(64);
+        String valueToShift = faker.random().hex(64);
+        LinkedList&lt;String&gt; list = new LinkedList&lt;&gt;();
+        list.add(faker.random().hex(64));
+        list.add(faker.random().hex(64));
+        list.add(valueToShift);
+        list.add(2, valueToAdd);
+        assertThat(list.get(2)).isEqualTo(valueToAdd);
+        assertThat(list.get(3)).isEqualTo(valueToShift);
+    }
+                </pre>
+                <p>
+                    To properly test our <code>LinkedList</code>, we should write unit tests for each of the instance methods we defined. We should validate
+                    that the outcomes of calling the methods are as we expect. I will not post the remainder of the unit tests I wrote for the <code>LinkedList</code>
+                    <code>class</code>, but will instead direct you to review them in the <a href="https://github.com/LNRexpress/linkedlist">GitHub repository</a>
+                    I created for the source code for this tutorial.
+                </p>
+                <h2 class="mt-5 mb-3">Conclusion</h2>
+                <p>
+                    In this post, I have show how to implement a custom linked list using the Java programming language.
+                    I have also shown how to go about writing unit tests for the linked list <code>class</code>. I hope that
+                    you have found this post helpful.
+                </p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        EnlighterJS.init('pre', {
+                language : 'java',
+                theme: 'enlighter',
+                indent : 4
+        });
+    </script>
+</body>
+</html>

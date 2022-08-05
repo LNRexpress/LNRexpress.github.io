@@ -104,3 +104,8 @@ h3 a, h3 a:visited {
     color:  #1C3879!important;
     text-decoration: none;
 }
+
+.btn-primary {
+    background-color:  #607EAA!important;
+    border-color:  #607EAA!important;
+}
