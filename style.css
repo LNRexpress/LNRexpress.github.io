@@ -1,7 +1,7 @@
 
 body {
     font-family: 'Lato', sans-serif;
-    color:  #1C3879;
+    color:  #0f1d2e;
 }
 
 h1 {
@@ -10,6 +10,12 @@ h1 {
     line-height: 1em;
     text-transform: uppercase;
     margin:  0px;
+}
+
+@media (max-width: 1200px) {
+    .responsive-h1 {
+        font-size: 30px;
+    }
 }
 
 h2 {
@@ -38,27 +44,35 @@ h3 a, h3 a:visited {
 }
 
 .color-accent {
-    color:  #607EAA;
+    color:  #0c1d2f;
 }
 
 .color-light {
-    color:  #F9F5EB;
+    color: #f5f5f5;
 }
 
 .background-primary {
-    background-color:  #1C3879;
+    background-color: #132e4e;
 }
 
 .background-accent {
-    background-color:  #607EAA;
+    background-color:  #0c1d2f;
 }
 
 .background-light {
-    background-color: #F9F5EB;
+    background-color: #f5f5f5;
 }
 
 .text-header-secondary {
-    color:  #EAE3D2;
+    color:  #fffeff;
+}
+
+.text-accent {
+    color:  #19b5ff;
+}
+
+.text-muted {
+    color:  #999999;
 }
 
 .nav-row {
@@ -66,12 +80,12 @@ h3 a, h3 a:visited {
 }
 
 .nav-row a, .nav-row a:hover, .nav-row a:visited {
-    color:  #EAE3D2!important;
+    color:  #fffeff!important;
     text-decoration: none;
 }
 
 .identity {
-    min-height: calc(350px - 1.5rem);
+    min-height: calc(200px - 1.5rem);
 }
 
 .divider {
@@ -82,7 +96,7 @@ h3 a, h3 a:visited {
 }
 
 .divider-light {
-    border-top: 1px solid #F9F5EB;
+    border-top: 1px solid #fffeff;
     width:  50%;
     margin-top:  20px;
     line-height: 20px;
@@ -92,16 +106,21 @@ h3 a, h3 a:visited {
     padding-left:  24px;
 }
 
+.gutter .custom-list {
+    color: #fffeff;
+}
+
 .gutter .custom-list span {
-    color: #F9F5EB!important;
+    color: #fffeff!important;
 }
 
 .contact-details .icon-container {
     width:  24px;
+    color:  #19b5ff;
 }
 
 .contact-details a, .contact-details a:hover, .contact-details a:visited {
-    color:  #1C3879!important;
+    color:  #fffeff!important;
     text-decoration: none;
 }
 
