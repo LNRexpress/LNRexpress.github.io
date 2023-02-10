@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KTHYG5BLRN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-KTHYG5BLRN');
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Apache Maven: Custom Archetype for Spring Boot Projects</title>
+
+    <meta name="description"         content="How to create a custom archetype for Apache Maven for Spring Boot projects" />
+    <meta property="og:url"          content="https://lnrexpress.github.io/blog/posts/apache-maven-custom-archetype-for-spring-boot-projects.html" />
+    <meta property="og:type"         content="article" />
+    <meta property="og:title"        content="Apache Maven: Custom Archetype for Spring Boot Projects" />
+    <meta property="og:description"  content="How to create a custom archetype for Apache Maven for Spring Boot projects" />
+    <link rel="canonical" href="https://lnrexpress.github.io/blog/posts/apache-maven-custom-archetype-for-spring-boot-projects.html" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="../../style.css" media="screen" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/enlighterjs@3.4.0/dist/enlighterjs.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/enlighterjs@3.4.0/dist/enlighterjs.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row align-items-center nav-row background-primary">
+            <div class="col text-center">
+                <div class="d-inline-block ps-2 pe-2"><a href="../../">About</a></div>
+                <div class="d-inline-block ps-2 pe-2"><a href="../../blog/">Blog</a></div>
+            </div>
+        </div>
+        <div class="row background-light">
+            <div class="col offset-md-1 col-md-10 mt-5 pb-3">
+                <h1 class="mb-3">Apache Maven: Custom Archetype for Spring Boot Projects</h1>
+
+                <p>
+                    A Maven archetype is a parameterized project template that is used to initialize, or create, a new
+                    Apache Maven project. Maven archetypes are ideal for creating initial, boilerplate code and scaffolding that is
+                    required to get a new Maven project in a working, standardized state.
+                </p>
+
+                <p>
+                    In this post, I walk through the steps required to create a Maven archetype for a minimal Spring Boot project.
+                    I will also show how to customize the archetype so that the user of the archetype can choose which
+                    version of Spring Boot he or she wishes to use in their new Spring Boot project.
+                </p>
+
+                <h2 class="mt-5 mb-3">Prerequisites</h2>
+
+                <p>
+                    Before getting started, you need to make sure you have installed the following software on your computer:
+                </p>
+
+                <ul>
+                    <li><a href="https://jdk.java.net/" rel="nofollow">Java Development Kit</a>, version 8 or higher</li>
+                    <li><a href="https://maven.apache.org/" rel="nofollow">Apache Maven</a>, 3.8 or higher </li>
+                </ul>
+
+                <p>
+                    To verify that you have installed the JDK correctly,
+                    open a terminal, or shell, and execute the following command:
+                </p>
+
+                <pre data-enlighter-language="bash">
+javac --version
+                </pre>
+
+                <p>
+                    The output in your shell should be similar to the following:
+                </p>
+
+                <pre data-enlighter-language="raw">
+javac 17.0.2
+                </pre>
+
+                <p>
+                    To verify that you have installed Apache Maven correctly,
+                    execute the following command:
+                </p>
+
+                <pre data-enlighter-language="bash">
+mvn --version
+                </pre>
+
+                <p>
+                    The output in your shell should be similar to the following:
+                </p>
+
+                <pre data-enlighter-language="raw">
+Apache Maven 3.8.5 (3599d3414f046de2324203b78ddcf9b5e4388aa0)
+                </pre>
+
+                <h2 class="mt-5 mb-3">Empty Working Directory</h2>
+
+                <p>
+                    For creating an Apache Maven archetype, we are going to want to be in an empty directory to start.
+                    You can name the directory whatever you wish. The name of this directory is not important. We just
+                    need an empty directory tree to begin creating the archetype.
+                </p>
+
+                <h2 class="mt-5 mb-3">Define The Archetype Properties</h2>
+
+                <p>
+                    Within the empty archetype directory, create a file named <code>archetype.properties</code>.
+                    Within this properties file, you will define the following four properties:
+                </p>
+
+                <dl class="row">
+                    <dt class="col-md-3">archetype.groupId</dt>
+                    <dd class="col-md-9">Your group or organization identifier</dd>
+
+                    <dt class="col-md-3">archetype.artifactId</dt>
+                    <dd class="col-md-9">The identifier of this archetype within your group or organization</dd>
+
+                    <dt class="col-md-3">archetype.version</dt>
+                    <dd class="col-md-9">The current version of this archetype</dd>
+
+                    <dt class="col-md-3">springBootVersion</dt>
+                    <dd class="col-md-9">The default version of Spring Boot to use in the project generated using this archetype</dd>
+                </dl>
+
+                <p>
+                    When complete, <code>archetype.properties</code> should look like the following: 
+                </p>
+
+                <pre data-enlighter-language="raw">
+archetype.groupId=com.nightsky
+archetype.artifactId=spring-boot-minimal
+archetype.version=1.0.0
+springBootVersion=2.7.8
+                </pre>
+
+                <h2 class="mt-5 mb-3">Create The Archetype Directory</h2>
+
+                <p>
+                    Next, we need to create a directory to hold all of the files that will compose the archetype.
+                    Again, the name of this directory does not matter, but it is good practice to name it the same
+                    as the value you provided for the <code>archetype.artifactId</code> property within the
+                    <code>archetype.properties</code> file.
+                </p>
+
+                <pre data-enlighter-language="bash">
+mkdir spring-boot-minimal
+                </pre>
+
+                <h2 class="mt-5 mb-3">Create The Target Project Directory Structure</h2>
+
+                <p>
+                    Within the archetype directory we just created, we need to create the standard directories that exist in Spring Boot projects.
+                    Execute the following commands to create the directories:
+                </p>
+
+                <pre data-enlighter-language="bash">
+cd spring-boot-minimal
+mkdir -p src/main/java src/main/resources src/test/java src/test/resources
+                </pre>
+
+                <h2 class="mt-5 mb-3">Create An Apache Maven POM File</h2>
+
+                <p>
+                    With all of the directories created, we can start creating the required files.
+                    Let's start by creating the <code>pom.xml</code> file expected by Apache Maven.
+                </p>
+
+                <pre data-enlighter-language="bash">
+touch pom.xml
+                </pre>
+
+                <p>
+                    Copy the XML content below and paste it into your <code>pom.xml</code> file.
+                    You will need to change the following lines:
+                </p>
+
+                <ul>
+                    <li>Line 6 (<code>groupId</code>): The value should match the value of <code>archetype.groupId</code> in the <code>archetype.properties</code> file</li>
+                    <li>Line 7 (<code>artifactId</code>): The value should match the value of <code>archetype.artifactId</code> in the <code>archetype.properties</code> file</li>
+                    <li>Line 8 (<code>version</code>): The value should match the value of <code>archetype.version</code> in the <code>archetype.properties</code> file</li>
+                    <li>Line 18 (<code>version</code>): The value should match the value of <code>springBootVersion</code> in the <code>archetype.properties</code> file</li>
+                </ul>
+
+                <pre data-enlighter-language="xml">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+            xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+            xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;com.nightsky&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-minimal&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0&lt;/version&gt;
+    &lt;packaging&gt;jar&lt;/packaging&gt;
+    &lt;properties&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+        &lt;maven.compiler.source&gt;8&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;8&lt;/maven.compiler.target&gt;
+    &lt;/properties&gt;
+    &lt;parent&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+        &lt;version&gt;2.7.8&lt;/version&gt;
+    &lt;/parent&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+                </pre>
+
+                <h2 class="mt-5 mb-3">Create The Spring Boot Application Configuration File</h2>
+
+                <p>
+                    Next, we need to create the Spring Boot application configuration file (<code>application.yml</code>).
+                </p>
+
+                <pre data-enlighter-language="bash">
+touch src/main/resources/application.yml
+                </pre>
+
+                <p>
+                    Add the following to the file to make it a valid YAML file and configure Spring Boot to output its
+                    banner to the console during startup.
+                </p>
+
+                <pre data-enlighter-language="yaml">
+---
+spring:
+    main:
+        banner-mode: console
+                </pre>
+
+                <h2 class="mt-5 mb-3">Create The Application Entry Point</h2>
+
+                <p>
+                    The final requirement for the Spring Boot project is a class annotated with the
+                    <code>@SpringBootApplication</code> annotation that contains a standard Java
+                    <code>main</code> method, which bootstraps and launches the Spring-based application.
+                </p>
+
+                <p>
+                    Create a file named <code>App.java</code> in <code>src/main/java/com/nightsky/spring/boot/minimal/</code>
+                    by executing the following commands:
+                </p>
+
+                <pre data-enlighter-language="bash">
+mkdir -p src/main/java/com/nightsky/spring/boot/minimal/
+touch src/main/java/com/nightsky/spring/boot/minimal/App.java
+                </pre>
+
+                <p>
+                    Then, copy the code below and paste it into <code>App.java</code>
+                </p>
+
+                <pre data-enlighter-language="java">
+package com.nightsky.spring.boot.minimal;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class App {
+
+    /**
+     * Point of entry for the Spring Boot application.
+     *
+     * @param args Command line arguments.
+     */
+    public static void main(String[] args) {
+        SpringApplication.run(App.class, args);
+    }
+
+}
+                </pre>
+
+                <h2 class="mt-5 mb-3">Ensure Empty Folders are Included</h2>
+
+                <p>
+                    When building the archetype distributable, empty folders are omitted. To ensure the directory
+                    tree under <code>src/test/</code> is included in the archetype, we need to add a couple empty
+                    files to the directories contained under <code>src/test/</code>. Let's name them <code>.gitkeep</code>,
+                    and create them using the following commands:
+                </p>
+
+                <pre data-enlighter-language="bash">
+touch src/test/java/.gitkeep
+touch src/test/resources/.gitkeep
+                </pre>
+
+                <p>
+                    I am naming them <code>.gitkeep</code> for two reasons:
+                </p>
+
+                <ol>
+                    <li>Most file system viewers will, by default, hide files with names starting with a period ("."); and,</li>
+                    <li>
+                        I want these folders to be included in the Git repository that will be created upstream,
+                        after creating a new Maven project using this archetype. Git, like the Maven archetype build process,
+                        will not include empty folders in a newly created Git repository. Adding a <code>.gitkeep</code> file
+                        to an empty folder ensures the folder is included in a new Git repository.
+                    </li>
+                </ol>
+
+                <h2 class="mt-5 mb-3">Create The Maven Archetype</h2>
+
+                <p>
+                    We are now ready to create the Maven archetype. This can be done by executing the following command:
+                </p>
+
+                <pre data-enlighter-language="bash">
+mvn archetype:create-from-project -Darchetype.properties=../archetype.properties
+                </pre>
+
+                <p>
+                    If the process completes successfully, you will find a new directory in your archetype project folder.
+                    It will be named <code>target/</code>. This directory contains the files required to install the
+                    archetype to your local Maven repository located in <code>$HOME/.m2/</code>.
+                </p>
+
+                <h2 class="mt-5 mb-3">Add Spring Boot Version Variable to POM Template</h2>
+
+                <p>
+                    Before we install the archetype to our local Maven repository, we need to add a variable for the version
+                    of Spring Boot the user would like to use in their Spring Boot project. We will add this
+                    variable to the template <code>pom.xml</code> file created by the
+                    <code>mvn archetype:create-from-project</code> process.
+                </p>
+
+                <p>
+                    To add the variable, open <code>target/generated-sources/archetype/src/main/resources/archetype-resources/pom.xml</code>.
+                </p>
+
+                <p>
+                    Change the version of the Spring Boot parent artifact from <code>2.7.8</code> to <code>${springBootVersion}</code>.
+                </p>
+
+                <p>
+                    The <code>parent</code> entry should now look like the following:
+                </p>
+
+                <pre data-enlighter-language="xml">
+&lt;parent&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+    &lt;version&gt;${springBootVersion}&lt;/version&gt;
+&lt;/parent&gt;
+                </pre>
+
+                <p>
+                    We also need to remove the default value of this variable from the archetype metadata. This will force the
+                    user of our archetype to specify which version of Spring Boot they wish to use in their project.
+                </p>
+
+                <p>
+                    To remove the default value, open <code>target/generated-sources/archetype/src/main/resources/META-INF/maven/archetype-metadata.xml</code>.
+                </p>
+
+                <p>
+                    Look for the <code>requiredProperties</code> element and remove the <code>defaultValue</code> child element.
+                </p>
+
+                <p>
+                    The <code>requiredProperties</code> element should now look like the following:
+                </p>
+
+                <pre data-enlighter-language="xml">
+&lt;requiredProperties&gt;
+    &lt;requiredProperty key=&quot;springBootVersion&quot;&gt;
+    &lt;/requiredProperty&gt;
+&lt;/requiredProperties&gt;
+                </pre>
+
+                <h2 class="mt-5 mb-3">Install The Maven Archetype</h2>
+
+                <p>
+                    The archetype is now complete, and we are ready to install it to our local Maven repository. Let's install the
+                    archetype by executing the following commands:
+                </p>
+
+                <pre data-enlighter-language="bash">
+cd target/generated-sources/archetype/
+mvn install
+                </pre>
+
+                <p>
+                    That's it! The custom Maven archetype is now ready to be used to create minimal Spring Boot projects.
+                </p>
+
+                <h2 class="mt-5 mb-3">Use The Custom Spring Boot Maven Archetype</h2>
+
+                <p>
+                    After installing the custom Maven archetype to our local Maven repository, it can be used to create a
+                    minimal, standardized Spring Boot project by executing the following command:
+                </p>
+
+                <pre data-enlighter-language="bash">
+mvn archetype:generate -DarchetypeCatalog=local \
+    -DarchetypeGroupId=com.nightsky -DarchetypeArtifactId=spring-boot-minimal -DarchetypeVersion=1.0.0
+                </pre>
+
+                <p>
+                    Note that the values of the command line arguments (<code>archetypeGroupId</code>,
+                    <code>archetypeArtifactId</code>, and <code>archetypeVersion</code>) must match the values of
+                    the corresponding properties in the <code>archetype.properties</code> file used to create the
+                    Maven archetype.
+                </p>
+
+                <p>
+                    Maven will prompt you for the following values:
+                </p>
+
+                <dl class="row">
+                    <dt class="col-md-3">springBootVersion</dt>
+                    <dd class="col-md-9">The version of Spring Boot to use in your new project</dd>
+
+                    <dt class="col-md-3">groupId</dt>
+                    <dd class="col-md-9">The group or organization identifier for your new project</dd>
+
+                    <dt class="col-md-3">artifactId</dt>
+                    <dd class="col-md-9">The identifier of the new project within your group or organization</dd>
+
+                    <dt class="col-md-3">version</dt>
+                    <dd class="col-md-9">The initial version of the new project</dd>
+
+                    <dt class="col-md-3">package</dt>
+                    <dd class="col-md-9">The root Java package for your source files</dd>
+                </dl>
+
+                <p>
+                    After providing the required values, Maven will ask you confirm the values you provided.
+                    Type <code>Y</code> and press <code>Enter</code> to confirm your entries.
+                </p>
+
+                <p>
+                    Alternatively, if you want to skip the prompts, you can provide all required variable values on the command
+                    line like so:
+                </p>
+
+                <pre data-enlighter-language="bash">
+mvn archetype:generate -DarchetypeCatalog=local \
+    -DarchetypeGroupId=com.nightsky -DarchetypeArtifactId=spring-boot-minimal -DarchetypeVersion=1.0.0 \
+    -DgroupId=com.myorganization -DartifactId=myproject -Dversion=1.0.0 -Dpackage=com.myorganization.app \
+    -DspringBootVersion=2.7.7 -DinteractiveMode=false
+                </pre>
+
+                <h2 class="mt-5 mb-3">Verify Your Spring Boot Project</h2>
+
+                <p>
+                    After executing the <code>mvn archetype:generate</code> command, your working directory should have a
+                    child directory with a name matching the value you chose for the <code>artifactId</code> variable.
+                </p>
+
+                <p>
+                    To verify that your Spring Boot project was created properly, enter the new project directory and
+                    run the Spring Boot application. For example:
+                </p>
+
+                <pre data-enlighter-language="bash">
+cd myproject
+mvn spring-boot:run
+                </pre>
+
+                <p>
+                    If your project was created properly, you should see the Spring Boot banner displayed with the version
+                    that you chose, and Apache Tomcat should be listening on port <code>8080</code>.
+                </p>
+                
+            </div>
+        </div>
+        <div class="row background-light">
+            <div class="col offset-md-1 col-md-10 mt-5 pb-3 text-center">
+                <a href="https://www.kloudsigning.com/"><img class="img-fluid" src="https://objectstorage.us-ashburn-1.oraclecloud.com/p/qUeHsKI0sdzBehk_yc3agL2vNAQ0MCa0tmb9mvQuzEGHeZZcjV1CDXXver5c4R9-/n/idhgxjba58n7/b/personal-public/o/blog/leaderboard.png" alt="KloudSigning eSignatures" /></a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        EnlighterJS.init('pre', {
+                language : 'java',
+                theme: 'enlighter',
+                indent : 4
+        });
+    </script>
+</body>
+</html>
