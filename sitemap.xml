@@ -11,6 +11,9 @@
         <priority>0.95</priority>
     </url>
     <url>
+        <loc>https://lnrexpress.github.io/blog/posts/back-to-basics-creating-and-testing-a-custom-linked-list-in-java.html</loc>
+    </url>
+    <url>
         <loc>https://lnrexpress.github.io/blog/posts/apache-maven-custom-archetype-for-spring-boot-projects.html</loc>
     </url>
 </urlset>
